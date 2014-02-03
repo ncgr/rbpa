@@ -1,0 +1,4 @@
+rbpa
+====
+
+Transcriptome Assembly Pipeline
