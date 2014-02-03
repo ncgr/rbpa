@@ -75,8 +75,10 @@ sub run_OLC {
 sub run_scaffold {
 	die "abyss did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if system("abyss-scaffold --help >/dev/null") != 0;
 	die "bwa did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if system("bwa aln 2>/dev/null") != 0;
-	die "Please specify at least one set of paired fastq files -r, or a bam file with b\n" if !$ops{r} || !$ops{b};
-	die "Please specify at least one fasta file with -R, if -b provided reference must be alignment reference\n" if !$ops{R};
+	#die "Please specify at least one set of paired fastq files -r, or a bam file with b\n" if !$ops{r} || !$ops{b};
+	die "Please specify at least one set of paired fastq files -r\n" if !$ops{r};
+	#die "Please specify at least one fasta file with -R, if -b provided reference must be alignment reference\n" if !$ops{R};
+	die "Please specify at least one fasta file with -R\n" if !$ops{R};
 	die "Please specify a kmer value to use with abyss -k\n" if !$ops{k};
 	my $params = "-r \"$ops{r}\" -R $ops{R} -k $ops{k}";
 	$params=$params." -m $ops{i}" if $ops{i};
@@ -226,8 +228,8 @@ Scaffold:
 
 	-r) fastq read files. Expected orientation is forward reverse.
 	-R) fasta reference to scaffold. Sequences will be renamed sequentially
-	-k) kmer value to use in abyss.
-	-m) maximum mismatch for Burrows . Wheeler aligner
+	-k) kmer value to use in abyss. Suggest using read length or value close to read length.
+	-i) maximum mismatch for Burrows . Wheeler aligner
 	-p) minimum pairing evidence to use for scaffolds
 	-o) output file prefix
 	-s) minimum scaffold seed length
