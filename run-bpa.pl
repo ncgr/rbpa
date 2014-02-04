@@ -98,7 +98,7 @@ sub run_gapclose {
 	die "Please specify a maximum read length -l\n" if !$ops{l};
 	my ($r1, $r2, $ref, $ins, $mlen, $threads) = ($ops{f}, $ops{r}, $ops{R}, ($ops{i}) ? $ops{i} : "", $ops{l}, ($ops{t}) ? $ops{t} : 1);
 	system("run-gapclose.bash \"$r1\" \"$r2\" $ref $mlen $threads $ins");
-	die "run-gapclose.bash failed, check logs or STDERR captures for more information\n" if $? != 0;
+#	die "run-gapclose.bash failed, check logs or STDERR captures for more information\n" if $? != 0;
 }
 
 sub run_realign {

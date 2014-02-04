@@ -2,9 +2,11 @@
 
 if [ $# -lt 3 ];then
 
+#usage:$0 <-r "read file(s)" | -b "bam file"> <-R reference.fa> <-k kmer> [-m maximum mismatch bwa] [-p min pairs] [-o output prefix] [-s seed length] [-t threads]
+
 cat << _TEXT
 
-        usage:$0 <-r "read file(s)" | -b "bam file"> <-R reference.fa> <-k kmer> [-m maximum mismatch bwa] [-p min pairs] [-o output prefix] [-s seed length] [-t threads]
+        usage:$0 <-r "read file(s)"> <-R reference.fa> <-k kmer> [-m maximum mismatch bwa] [-p min pairs] [-o output prefix] [-s seed length] [-t threads]
 
 _TEXT
 
