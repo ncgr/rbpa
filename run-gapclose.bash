@@ -53,11 +53,10 @@ fi
 
 #################end of gapclose.conf.header#######################
 
-#cat $ref |  awk '{if(/^>/){a+=1;if(a==1){print ">BPA_"a}else{printf "\n>BPA_"a"\n"}}else{printf $0}}' > gapclose_in.fna
+cat $ref |  awk '{if(/^>/){a+=1;if(a==1){print ">BPA_"a}else{printf "\n>BPA_"a"\n"}}else{printf $0}}' > gapclose_in.fna
 
 #################lauch jobs########################################
 
 GapCloser -a gapclose_in.fna -b gapclose.conf.header -t $threads -o gapclosed.fna > log_gapclose.out
-#run-gapclose.bash > $$.out 
 
 ##################END#####################
