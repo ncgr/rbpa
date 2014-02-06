@@ -143,8 +143,8 @@ sub run_BLAST {
 sub run_ESTscan {
 	die "ESTscan did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if system("estscan -h 2>/dev/null") != 256;
 	die "Please specify a fasta input file with -i\n" if !$ops{i};
-	die "Please specify a scoring matrix with -m\n" if !$ops{m};
-	my ($in, $smat, $out, $minlen) = ($ops{i}, $ops{m}, ($ops{o}) ? $ops{o} : $output, ($ops{l}) ? $ops{l} : "");
+	die "Please specify a scoring matrix with -s\n" if !$ops{s};
+	my ($in, $smat, $out, $minlen) = ($ops{i}, $ops{s}, ($ops{o}) ? $ops{o} : $output, ($ops{l}) ? $ops{l} : "");
 	system("run-ESTscan.bash $in $smat $out $minlen");
 	die "run-ESTscan.bash did not execute properly, please see logs of stderr\n" if $? != 0;
 }

@@ -13,6 +13,7 @@ smat=$2
 out=$3
 len=30
 
+
 if [ ! -z $4 ]; then
 	len=$4
 fi
@@ -26,6 +27,6 @@ mkdir estscan
 
 #############Begin peptide prediction###################
 
-	estscan -M ${para} -l $len -t estscan/protein_motifs_raw.faa $in > estscan/motif_seqs.fna 
+	estscan -M $smat -l $len -t estscan/${out}_protein_motifs_raw.faa $in > estscan/${out}_motif_seqs.fna 
 
 echo "Parameter File=$smat" > estscan/smat.txt
