@@ -1,7 +1,7 @@
 rbpa
 ====
 
-Transcriptome Assembly Pipeline
+Transcriptome Assembly Pipeline BPA 2.1.0
 
 This pipeline is used to run a BPA transcriptome assembly.  Please see the README file for usage and installation.
 
