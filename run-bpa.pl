@@ -123,7 +123,7 @@ sub run_realign {
 }
 
 sub run_BLAST {
-	die "blast did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if system("blastn -h >/dev/null") != 256;
+	die "blast did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if system("blastn -h >/dev/null") != 0;
 #	die "Please specify a fasta input file with -i or a directory for cluster searching with -d\n" if !$ops{i};
 	die "Please specify a fasta input file with -i\n" if !$ops{i};
 	die "Please specify BLAST formatted reference basename -R\n" if !$ops{R};
