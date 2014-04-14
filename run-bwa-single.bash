@@ -1,12 +1,19 @@
 #! /bin/bash
 
+###############################################################################
+#                               run-bwa-single.bash
+#                       Shell for realigning single-end reads
+#                               February 4, 2014
+#                               NCGR: www.ncgr.org
+###############################################################################
+
 . /home/analysis/ctc/rbpa/paths.bash
 
 if [ $# -lt 3 ];then
 
 cat << USAGE
 
-	usage:$0 <in_fastq> <ref> <out_prefix> <threads> [miss match]
+	usage:$0 <in_fastq> <ref> <out_prefix> <threads> [mismatch]
 
 USAGE
 

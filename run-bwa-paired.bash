@@ -1,12 +1,19 @@
 #! /bin/bash
 
+###############################################################################
+#                               run-bwa-paired.bash
+#       		Shell for realigning paired-end reads
+#                               February 4, 2014
+#                               NCGR: www.ncgr.org
+###############################################################################
+
 . /home/analysis/$USER/.bash_profile
 
 if [ $# -lt 4 ];then
 
 	cat << _TEXT
 	
-	usage:$0 <r1> <r2> <ref> <outprefix> <threads> [miss match]
+	usage:$0 <r1> <r2> <ref> <outprefix> <threads> [mismatch]
 
 _TEXT
 exit 1

@@ -1,5 +1,12 @@
 #!/bin/bash
 
+###############################################################################
+#                               blastx.bash
+#       		Shell for launching blastx
+#                               February 4, 2014
+#                               NCGR: www.ncgr.org
+###############################################################################
+
 if [ $# -lt 7 ];then
 	echo "usage:$0 <query> <ref> <out> <threads> <eval> <outfmt> <gencode>"
 	exit 1
@@ -13,7 +20,7 @@ e=$5
 fmt=$6
 code=$7
 
-/sw/compbio/ncbi_blast+/2.2.28/bin/blastx \
+blastx \
 -query $query \
 -db $ref \
 -out $out \

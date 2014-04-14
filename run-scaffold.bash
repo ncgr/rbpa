@@ -56,7 +56,7 @@ while getopts ":r:m:p:o:s:t:k:R:b:" fl; do
 			kmer=$OPTARG
 			;;
 		R)
-			ref=$OPTARG
+			ref="$OPTARG"
 			;;
                 \?)
                         echo "$fl is not a valid option"

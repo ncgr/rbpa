@@ -28,7 +28,7 @@ Modes:
 
 6) ESTScan: coding sequences are predicted using ESTScan [6,7] with a user provided scoring matrix. 
 
-7) BLAST: BLASTp [8] is used to annotate ESTs from hits against selected database(s).
+7) BLAST: BLASTx [8] is used to annotate ESTs from hits against selected database(s).
 
 8) HMMscan: protein sequences are functionally characterized using HMMER3 [9] against Pfam-A [10], TIGRFAM [11], and SUPERFAMILY [12] databases.
 
@@ -60,7 +60,7 @@ References:
 
 Installation: 
 
-The following dependencies are required with the versions listed or newer. Be sure to export these into your PATH before running BPA-2.1.0. 
+The following dependencies are required with the versions listed or newer. Be sure to export these, as well as the rbpa directory from GitHub, into your PATH before running BPA-2.1.0. 
 
 ABySS 1.3.3 (http://www.bcgsc.ca/platform/bioinfo/software/abyss/releases)
 
@@ -102,7 +102,6 @@ Unitigs:
 	-v) minimum kmer coverage [5].
 
 	example: run-bpa.pl -m unitigs -i "example.1.fastq example.2.fastq" -c 128 –k kmer.txt 
-
 	output file(s): abyss/*/abyssrun-unitigs.fa
 
 
@@ -112,7 +111,7 @@ OLC:
 
 	-i) fasta input file(s). If multiple fasta files are provided please utilize quotations (can use wildcard).
 	-t) threads to be used in CD-HIT-EST.
-	-u) CAP3 command [-o 100]. Use quotations for multiple options.
+	-u) CAP3 command [-o100 -h50]. Use quotations for multiple options.
 	-e) percent identity for CD-HIT-EST. If not provided, reduction will not be performed.
 
 	example: run-bpa.pl -m OLC -i "/*/abyssrun-3.fa" -t 0 -u "-o 100 -h 20" -e .98
@@ -147,7 +146,7 @@ Gapclose:
 	-R) fasta reference to gap close
 	-l) maximum fastq read length
 	-i) insert size. Must be provided if scaffolding directory is not contained in parent.
-	-t) threads
+	-t) threads [1]
 
 	example: run-bpa.pl -m gapclose -f example.1.fastq -r example.2.fastq -R scaffold/scaffolds.fna -l 50 -t 4
 
@@ -161,8 +160,8 @@ Realign:
 	-f) mate one of fastq read files. Multiple files may be included with quotations; order must match mate two
 	-r) mate two of fastq read files. Multiple files may be included with quotations; order must match mate one
 	-R) fasta reference file
-	-o) output file prefix
-	-t) threads
+	-o) output file prefix [BPA]
+	-t) threads [1]
 	-m) maximum mismatch in Burrows-Wheeler aligner [0.04]
 
 	example: run-bpa.pl -m realign -f example.1.fastq -r example.2.fastq -R /gapclose/gapclosed.fna
@@ -172,36 +171,52 @@ Realign:
 
 ESTscan:
 
-        Usage: /home/analysis/kschilling/rbpa_revamp/run-bpa.pl -m  <-i input file> <-m scoring matrix> [-o output prefix] [-l minimum result length]
+        Usage: run-bpa.pl -m estscan <-i input file> <-s scoring matrix> [-o output prefix] [-l minimum result length]
 
         -i) fasta input file
-        -m) scoring matrix. See documentation for ESTscan for information on how to create these
+        -s) scoring matrix. See documentation for ESTscan for information on how to create these
         -o) output prefix
-        -l) minimum result length
+        -l) minimum result length [30]
+
+p
+	example: run-bpa.pl -m estscan -i /gapclose/gapclosed.fna -s scoring_matrix.smat -l 150
+
+	output file: estscan/motif_seqs.fna (coding sequences as nucleotides)
+		     estscan/protein_motifs_raw.faa (coding sequences as amino acids)
 
 
 BLAST:
 
-	Usage: /home/analysis/kschilling/rbpa_revamp/run-bpa.pl -m  <-i input file> <-R blast formatted reference> [-o output prefix] [-t threads] [-s shell] [-e e-value] [-f out format] [-g genetic code]
+	Usage: run-bpa.pl -m blast <-i input file> <-R blast formatted reference> [-o output filename] [-t threads] [-s shell] [-e e-value] [-f out format] [-g genetic code]
 
 	-i) fasta input file to be used as query
 	-R) blast formatted reference prefix
-	-o) output prefix
-	-t) threads
-	-s) shell or blast command use quotations for command
-	-e) e- value
-	-f) blast output format
-	-g) genetic code to be used for translations
+	-o) output filename [BPA]
+	-t) threads [1]
+	-s) shell or blast command; use quotations for command [blastx.bash]
+	-e) e-value [1e-5]
+	-f) blast output format [7]
+	-g) genetic code to be used for translations [1]
+
+	example: run-bpa.pl -m blast -i estscan/motif_seqs.fna -R uniprotkb_swissprot -t 4 -e 1e-20 -f 5 
+
+	output file: BPA (default)
 
 
 HMMscan:
 
-	Usage: /home/analysis/kschilling/rbpa_revamp/run-bpa.pl -m  <-i input file> <-d HMMER3 database> [-o output prefix] [-t threads]
+	Usage: run-bpa.pl -m hmmscan <-i input file> <-d HMMER3 database> [-o output prefix] [-t threads]
 
 	-i) peptide input file in fasta format
 	-d) HMMER3 database to use with hmmscan
-	-o) output file prefix
-	-t) threads
+	-o) output file prefix [BPA]
+	-t) threads [1]
+
+	example: run-bpa.pl -m hmmscan -i estscan/protein_motifs_raw.faa -d superfam.hmm -o superfam -t 4
+
+	output files: superfam.hits
+		      superfam.hits.tbl
+
 
 ACKNOWLEDGEMENTS:
 

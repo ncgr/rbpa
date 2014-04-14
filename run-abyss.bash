@@ -76,7 +76,7 @@ for i in $kmers; do
 	echo $label
 	if [[ "$coretest" -ne "0" || "$filetest" -ne "1" || ! -s $i/abyssrun-3.fa ]]; then
 		if [ -d $i ]; then 
-			rm -rf $i
+			rm -rf $i 2>/dev/null
 		fi 
 		mkdir -p $i
 		( echo $i; cd $i; manage_cluster.bash $i "$data" $label $cores $cov $path > ${label}.out 2>${label}.err )
