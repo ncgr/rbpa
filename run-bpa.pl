@@ -19,36 +19,46 @@ my ($output, $mode) = ("BPA", $ops{m});
 
 if ($mode =~ /unitigs/i) {
 	&help_unitigs if $ops{h};
+	exit 1 if $ops{h};
 	&run_unitigs;
 } elsif ($mode =~ /olc/i) {
 	&help_OLC if $ops{h};
+	exit 1 if $ops{h};
 	&run_OLC;
 } elsif ($mode =~ /scaffold/i) {
 	&help_scaffold if $ops{h};
+	exit 1 if $ops{h};
 	&run_scaffold;
 } elsif ($mode =~ /Gapclose/i) {
 	&help_gapclose if $ops{h};
+	exit 1 if $ops{h};
 	&run_gapclose;
 } elsif ($mode =~ /Realign/i) {
 	&help_realign if $ops{h};
+	exit 1 if $ops{h};
 	&run_realign;
 } elsif ($mode =~ /BLAST/i) {
 	&help_BLAST if $ops{h};
+	exit 1 if $ops{h};
 	&run_BLAST;
 } elsif ($mode =~ /ESTscan/i) {
 	&help_ESTscan if $ops{h};
+	exit 1 if $ops{h};
 	&run_ESTscan;
 } elsif ($mode =~ /HMMscan/i) {
 	&help_HMMscan if $ops{h};
+	exit 1 if $ops{h};
 	&run_HMMscan;
 } elsif ($mode =~ /assemble/i) {
 	&help_assemble if $ops{h};
+	exit 1 if $ops{h};
 	&run_OLC;
 	&run_scaffold;
 	&run_gapclose;
 	&run_realign;
 } elsif ($mode =~ /annotate/i) {
 	&help_annotate if $ops{h};
+	exit 1 if $ops{h};
 	&run_BLAST;
 	&help_ESTscan;
 	&help_HMMscan;
@@ -73,7 +83,7 @@ sub run_OLC {
 	die "Cap3 did not execture properly, please ensure that you exported the binary directory into your PATH variable\n" if system("cap3 2>/dev/null") != 256;
 	die "Please specify at least one fasta file with -i\n" if !$ops{i};
 	my $threads = ($ops{t}) ? $ops{t} : 0;
-	my ($fasta, $cap3, $cdhit) = ($ops{i}, ($ops{u}) ? "$ops{u}" : "-o100 -h50", ($ops{e}) ? "-T $threads -c $ops{e}" : "");
+	my ($fasta, $cap3, $cdhit) = ($ops{i}, ($ops{u}) ? "$ops{u}" : "-o 100 -h 50", ($ops{e}) ? "-T $threads -c $ops{e}" : "");
 	system ("run-OLC.bash -f \"$fasta\" -c \"$cap3\" -d \"$cdhit\"") if $ops{e};
 	system ("run-OLC.bash -f \"$fasta\" -c \"$cap3\"") unless $ops{e};
 	die "run-OLC.bash failed, check logs or STDERR captures for more information\n" if $? != 0;
@@ -211,6 +221,7 @@ Unitigs:
 
 _HELP
 
+
 }
 
 sub help_OLC {
@@ -227,6 +238,7 @@ OLC:
 	-e) percent identity for CD-HIT-EST. If not provided, reduction will not be performed.
 
 _HELP
+
 
 }
 sub help_scaffold {
@@ -247,6 +259,7 @@ Scaffold:
 	-t) threads [2]
 
 _HELP
+
 
 }
 
