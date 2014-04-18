@@ -13,6 +13,8 @@ Description:
 
 Batch Parallel Assembly (BPA) version 2.1.0 consists of eight modes used for de novo transcriptome assembly from short read data (e.g. 2x50 Illumina Hi-Seq data), as well as read realignment and annotation. The modes included in BPA-2.1.0 are: Unitigs, OLC, Scaffold, Gapclose, Realign, ESTScan, BLAST and HMMscan. Each mode in BPA-2.1.0 is run individually, giving the user flexibility to run only the modes of interest. Modes can be run using data generated from the previous step or with external user files.
 
+For additional information specific to the Marine Microbial Eukaryote Transcriptome Sequencing Project, see README_MMETSP.
+
 
 Modes:
 
@@ -102,6 +104,7 @@ Unitigs:
 	-v) minimum kmer coverage [5].
 
 	example: run-bpa.pl -m unitigs -i "example.1.fastq example.2.fastq" -c 128 –k kmer.txt 
+	
 	output file(s): abyss/*/abyssrun-unitigs.fa
 
 
@@ -178,7 +181,6 @@ ESTscan:
         -o) output prefix
         -l) minimum result length [30]
 
-p
 	example: run-bpa.pl -m estscan -i /gapclose/gapclosed.fna -s scoring_matrix.smat -l 150
 
 	output file: estscan/motif_seqs.fna (coding sequences as nucleotides)

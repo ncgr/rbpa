@@ -3,7 +3,8 @@
 ###############################################################################
 #				manage_cluster.bash			
 #	Shell for launching openMPI enabled ABySS and completing unipaths
-# 				September 5, 2013
+# 				February 4, 2014
+#				NCGR: www.ncgr.org
 ###############################################################################
 
 kmer=$1

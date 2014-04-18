@@ -1,5 +1,12 @@
 #!/bin/bash -e
 
+###############################################################################
+#                               run-gapclose.bash
+#       		Shell for launching GapCloser
+#                               February 4, 2014
+#                               NCGR: www.ncgr.org
+###############################################################################
+
 if [ $# -lt 5 ]; then
         echo "usage:$0 <r1.fq> <r2.fq> <ref.fa> <max_length> <threads> [insert_size]"
         exit 1

@@ -1,5 +1,12 @@
 #!/bin/bash
 
+###############################################################################
+#                               run-hmmer.bash
+#       		Shell for launching hmmscan
+#                               February 4, 2014
+#                               NCGR: www.ncgr.org
+###############################################################################
+
 if [ $# -ne 4 ]; then
 	echo "usage:$0 <in> <db> <out> <cpu>"
 	exit 1

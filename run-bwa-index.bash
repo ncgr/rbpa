@@ -1,5 +1,12 @@
 #! /bin/bash
 
+###############################################################################
+#                               run-bwa-index.bash
+#       		Shell for launching bwa index
+#                               February 4, 2014
+#                               NCGR: www.ncgr.org
+###############################################################################
+
 . /home/analysis/$USER/.bash_profile
 
 if [ $# -ne 1 ];then
