@@ -91,7 +91,7 @@ sub run_OLC {
 
 sub run_scaffold {
 	die "abyss did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if system("abyss-scaffold --help >/dev/null") != 0;
-	die "bwa did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if system("bwa aln 2>/dev/null") != 0;
+	die "bwa did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if (system("bwa aln 2>/dev/null") != 0 && system("bwa aln 2>/dev/null") != 256);
 	#die "Please specify at least one set of paired fastq files -r, or a bam file with b\n" if !$ops{r} || !$ops{b};
 	die "Please specify at least one set of paired fastq files -r\n" if !$ops{r};
 	#die "Please specify at least one fasta file with -R, if -b provided reference must be alignment reference\n" if !$ops{R};
@@ -120,13 +120,13 @@ sub run_gapclose {
 
 sub run_realign {
 	die "samtools did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if system("samtools view 2>/dev/null") != 256;
-	die "bwa did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if system("bwa aln 2>/dev/null") != 0;
+	die "bwa did not execute properly, please ensure that you exported the binary directory into your PATH variable\n" if (system("bwa aln 2>/dev/null") != 0 && system("bwa aln 2>/dev/null") != 256);
 	die "Please specify at least one fastq file to realign -f\n" if !$ops{f};
 #       die "Please specify at least one file for mate two of paired fastq files, reverse -r\n" if !$ops{r};
 	die "Please specify fasta input file with -R\n" if !$ops{R};
 
 	my ($r1, $ref, $threads) = ($ops{f}, $ops{R}, ($ops{t}) ? $ops{t} : 1);
-	my $mism = ($ops{m}) ? $ops{m} : "";
+	my $mism = ($ops{n}) ? $ops{n} : "";
 	$output = $ops{o} if $ops{o};
 	system("run-bwa-index.bash $ref");
 	die "index did not complete properly, please see logs or stderr\n" if $? != 0;
@@ -288,14 +288,14 @@ print STDERR << "_HELP";
 
 Realign:
 
-	Usage: $0 -m realign <-f forward reads> [-r reverse reads] <-R reference> [-o output prefix] [-t threads] [-m mismatch]
+	Usage: $0 -m realign <-f forward reads> [-r reverse reads] <-R reference> [-o output prefix] [-t threads] [-n mismatch]
 
 	-f) mate one of fastq read files. Multiple files may be included with quotations; order must match mate two
 	-r) mate two of fastq read files. Multiple files may be included with quotations; order must match mate one
 	-R) fasta reference file
 	-o) output file prefix [BPA]
 	-t) threads [1]
-	-m) maximum mismatch in Burrows-Wheeler aligner [0.04]
+	-n) maximum mismatch in Burrows-Wheeler aligner [0.04]
 
 _HELP
 

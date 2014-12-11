@@ -26,4 +26,9 @@ if [ ! -f $ref ];then
 	exit 1
 fi
 
-bwa index $ref
+if [[ ! -f $ref.bwt || ! -f $ref.pac || ! -f $ref.ann || ! -f $ref.amb || ! -f $ref.sa ]];then
+
+	bwa index $ref
+else
+	echo "ref already indexed"
+fi
