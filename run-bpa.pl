@@ -358,7 +358,7 @@ _HELP
 
 sub use_get_opts {
         use Getopt::Std;
-        my $opts = 'hm:p:i:c:k:v:u:t:e:r:R:o:s:f:l:g:q:d:';
+        my $opts = 'hm:p:i:c:k:v:u:t:e:r:R:o:s:f:l:g:q:d:n:';
         getopts ("$opts", \%ops) or &help_main;
 }
 
